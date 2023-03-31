@@ -18,3 +18,17 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
+img {
+  display: inline-block;
+}
+
+h2 {
+  display: inline-block;
+  margin: 0 0 0 5px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
