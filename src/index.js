@@ -30,6 +30,7 @@ function onInputSearch() {
             position: 'center-top',
           }
         );
+        clearAll();
       } else if (country.length > 2 && country.length < 10) {
         clearAll();
         renderCountriesList(country);
