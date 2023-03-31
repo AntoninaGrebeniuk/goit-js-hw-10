@@ -31,7 +31,7 @@ function onInputSearch() {
           }
         );
         clearAll();
-      } else if (country.length > 2 && country.length < 10) {
+      } else if (country.length >= 2 && country.length < 10) {
         clearAll();
         renderCountriesList(country);
       } else if (country.length === 1) {
