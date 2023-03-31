@@ -6,7 +6,4 @@ export function fetchCountries(searchName) {
       return response.json();
     }
   });
-  // .catch(error => {
-  //   console.log(error);
-  // });
 }

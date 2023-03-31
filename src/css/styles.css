@@ -32,3 +32,15 @@ ul {
   list-style: none;
   padding: 0;
 }
+
+.country-list__item {
+  display: flex;
+  align-items: center;
+}
+
+.country-list__text {
+  display: inline-block;
+  margin: 5px 10px;
+  font-size: 20px;
+  font-weight: 500;
+}

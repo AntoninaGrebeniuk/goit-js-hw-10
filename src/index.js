@@ -9,17 +9,40 @@ const input = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
 
-let searchName = '';
-
 input.addEventListener('input', debounce(onInputSearch, DEBOUNCE_DELAY));
+
+let searchName = '';
 
 function onInputSearch() {
   searchName = input.value.trim();
 
-  fetchCountries(searchName).then(renderCountryCard).catch(onFetchError);
+  if (searchName === '') {
+    clearAll();
+    return;
+  }
+
+  fetchCountries(searchName)
+    .then(country => {
+      if (country.length > 10) {
+        Notiflix.Notify.info(
+          'Too many matches found. Please enter a more specific name.',
+          {
+            position: 'center-top',
+          }
+        );
+      } else if (country.length > 2 && country.length < 10) {
+        clearAll();
+        renderCountriesList(country);
+      } else if (country.length === 1) {
+        clearAll();
+        renderCountryCard(country);
+      }
+    })
+    .catch(onFetchError);
 }
 
 function onFetchError(error) {
+  clearAll();
   Notiflix.Notify.failure('Oops, there is no country with that name', {
     position: 'center-top',
   });
@@ -30,7 +53,7 @@ function renderCountryCard(country) {
     .map(
       ({ flags, name, capital, population, languages }) => `<img src="${
         flags.svg
-      }" alt="${flags.alt}" width="25" />
+      }" alt="${flags.alt}" width="50" />
   <h2>${name.official}</h2>
   <ul>
     <li>
@@ -49,16 +72,21 @@ function renderCountryCard(country) {
   countryInfo.innerHTML = countryCard;
 }
 
-// function renderCountriesList(countries) {
-//   const countriesList = countries
-//     .map(
-//       ({ flags, name }) =>
-//         `<li>
-//         <img src="${flags.svg}" alt="Country flag" />
-//         <p>${name.official}</p>
-//       </li>`
-//     )
-//     .join('');
+function renderCountriesList(countries) {
+  const countriesList = countries
+    .map(
+      ({ flags, name }) =>
+        `<li class="country-list__item">
+        <img src="${flags.svg}" alt="${flags.alt}" width="40" height="30" />
+        <p class="country-list__text">${name.official}</p>
+      </li>`
+    )
+    .join('');
 
-//   countryList.innerHTML = countriesList;
-// }
+  countryList.innerHTML = countriesList;
+}
+
+function clearAll() {
+  countryList.innerHTML = '';
+  countryInfo.innerHTML = '';
+}
