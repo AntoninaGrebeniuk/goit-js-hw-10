@@ -21,6 +21,7 @@ body {
 
 #search-box:focus {
   outline: none;
+  border-radius: 2px;
   border: 2px solid dodgerblue;
 }
 
