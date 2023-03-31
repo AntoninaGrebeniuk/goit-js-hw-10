@@ -19,6 +19,11 @@ body {
   margin-bottom: 16px;
 }
 
+#search-box:focus {
+  outline: none;
+  border: 2px solid dodgerblue;
+}
+
 img {
   display: inline-block;
 }
